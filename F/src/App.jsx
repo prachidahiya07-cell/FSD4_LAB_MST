@@ -1,12 +1,13 @@
 import { useState, memo } from "react";
+import "./App.css";
 
 const EventCard = memo(function EventCard({ title }) {
   console.log("EventCard rendered:", title);
 
   return (
-    <div>
+    <article className="event-card">
       <h2>{title}</h2>
-    </div>
+    </article>
   );
 });
 
@@ -20,17 +21,37 @@ function App() {
   ];
 
   return (
-    <div>
-      <h1>Events</h1>
+    <main className="events-panel">
+      <div className="panel-content">
+        <header className="panel-header">
+          <p className="eyebrow">Upcoming sessions</p>
+          <h1>Events</h1>
+          <p className="panel-description">
+            A few good things to learn together.
+          </p>
+        </header>
 
-      {events.map((event) => (
-        <EventCard key={event.id} title={event.title} />
-      ))}
+        <section aria-label="Upcoming events" className="event-list">
+          {events.map((event) => (
+            <EventCard key={event.id} title={event.title} />
+          ))}
+        </section>
+      </div>
 
-      <button onClick={() => setCount(count + 1)}>
-        Count: {count}
-      </button>
-    </div>
+      <footer className="counter-panel">
+        <div className="count-display" aria-live="polite">
+          <span className="count-label">Count</span>
+          <span className="count-value">{count}</span>
+        </div>
+        <button
+          className="increment-button"
+          onClick={() => setCount((currentCount) => currentCount + 1)}
+          type="button"
+        >
+          Increment Counter
+        </button>
+      </footer>
+    </main>
   );
 }
 
